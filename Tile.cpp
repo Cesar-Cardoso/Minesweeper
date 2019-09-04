@@ -23,13 +23,6 @@ Tile &Tile::operator=(const TileValue &obj) {
     return *this;
 }
 
-Tile &Tile::operator=(const Tile &obj) {
-    value = obj.value;
-    position = obj.position;
-    return *this;
-}
-
-
 void Tile::setValue(TileValue value) {
     this->value = value;
 }

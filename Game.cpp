@@ -8,6 +8,7 @@
 #include <random>
 #include <chrono>
 
+using namespace sf;
 
 Game::Game(string boardPath) {
     remainingMines = 0;
@@ -25,7 +26,7 @@ Game::Game(string boardPath) {
 
             if(mine) {
                 board[i][j] = Mine;
-                placedMine(Position {i , j});
+                placedMine(Position (i , j));
                 remainingMines++;
             }
         }
@@ -53,7 +54,7 @@ Game::Game(int mineAmount) {
     }
 
     for (int _ = 0; _ < mineAmount; ++_) {
-        uniform_int_distribution<int> distribution(0, emptyTiles.size());
+        uniform_int_distribution<int> distribution(0, emptyTiles.size() - 1);
         int selection = distribution(rand);
         Position selected = emptyTiles[selection];
         emptyTiles.erase(emptyTiles.begin() + selection);
@@ -62,22 +63,47 @@ Game::Game(int mineAmount) {
     }
 }
 
-void Game::printBoard() {
-    cout << "\n\n\n";
-    cout << "     0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24\n";
-    for (int j = 0; j < HEIGHT; ++j) {
-        cout << j << " - " << (j < 10 ? " " : "");
-        for (int i = 0; i < WIDTH; ++i) {
-            Tile current = board[i][j];
-            if (current.isFlagged())
-                cout << "F  ";
-            else if(developerMode || current.isRevealed())
-                cout << current.symbol() << "  ";
-            else
-                cout << ".  ";
-        }
-        cout << endl;
-    }
+int Game::getMines() {
+	return remainingMines;
+}
+
+void Game::setDev() {
+	developerMode = !developerMode;
+}
+
+void Game::printBoard(Image* images, RenderWindow *window) {
+	Texture tempTexture, backTexture;
+	backTexture.loadFromImage(images[tile_revealed]);
+	Sprite temp, background;
+
+	background.setTexture(backTexture);
+
+	for (int j = 0; j < HEIGHT; ++j) {
+
+		for (int i = 0; i < WIDTH; ++i) {
+			Tile current = board[i][j];
+			if (current.isFlagged()) {
+				backTexture.loadFromImage(images[tile_hidden]);
+				tempTexture.loadFromImage(images[flag]);
+			}
+			else if (current.isRevealed()) {
+				backTexture.loadFromImage(images[tile_revealed]);
+				tempTexture.loadFromImage(images[current.getValue()]);
+			}
+			else if (current.getValue() == Mine && developerMode) {
+				backTexture.loadFromImage(images[tile_revealed]);
+				tempTexture.loadFromImage(images[current.getValue()]);
+			}
+			else
+				tempTexture.loadFromImage(images[tile_hidden]);
+
+			temp.setTexture(tempTexture);
+			temp.setPosition(Vector2f(i * 32, j * 32));
+			background.setPosition(Vector2f(i * 32, j * 32));
+			window->draw(background);
+			window->draw(temp);
+		}
+	}
 }
 
 bool Game::clickTile(Position p) {
@@ -108,9 +134,9 @@ bool Game::flagTile(Position p) {
     if (board[p.x][p.y].isRevealed())
             return false;
     if (board[p.x][p.y].isFlagged())
-        remainingMines--;
-    else
         remainingMines++;
+    else
+        remainingMines--;
     board[p.x][p.y].flag();
     return true;
 }
@@ -120,26 +146,21 @@ void Game::endGame(bool wonGame) {
     developerMode = false;
     for (int i = 0; i < WIDTH; ++i) {
         for (int j = 0; j < HEIGHT; ++j) {
-            board[i][j] = board[i][j];
-            board[i][j].reveal();
+			if (board[i][j].getValue() == Mine)
+				if (wonGame) {
+					if (!board[i][j].isFlagged()) {
+						board[i][j].flag();
+						remainingMines--;
+					}
+				}
+				else
+					board[i][j].reveal();
         }
     }
-    cout << (wonGame ? ":)" : ":(");
 }
 
 GameState Game::getState() {
     return gameState;
-}
-
-
-void Game::restartGame() {
-    gameState = active;
-    developerMode = false;
-    for (int i = 0; i < WIDTH; ++i) {
-        for (int j = 0; j < HEIGHT; ++j) {
-            board[i][j] = board[i][j];
-        }
-    }
 }
 
 bool Game::isValid(Position p) {

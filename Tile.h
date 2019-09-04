@@ -2,15 +2,34 @@
 // Created by cardo on 7/29/2019.
 //
 
-#ifndef PROJECT3_TILE_H
-#define PROJECT3_TILE_H
+#ifndef MINESWEEPER_TILE_H
+#define MINESWEEPER_TILE_H
 
 enum TileValue {
-    _0 = 0, _1 = 1,_2 = 2, _3 = 3, _4 = 4, _5 = 5, _6 = 6, __7 = 7, _8 = 8, Mine = -1
+    _0 = 6, _1 = 7, _2 = 8, _3 = 9, _4 = 10, _5 = 11, _6 = 12, __7 = 13, _8 = 14, Mine = 15
+};
+
+struct Coordenate { // needed to check if buttons are pressed
+	double x, y;
 };
 
 struct Position {
     int x, y;
+
+	Position() {
+		x = 0;
+		y = 0;
+	}
+
+	Position(int x, int y) {
+		this->x = x;
+		this->y = y;
+	}
+
+	Position(Coordenate obj) {
+		x = int(obj.x);
+		y = int(obj.y);
+	}
 
     Position &operator+(const Position &obj) {
         Position* result = new Position;
@@ -30,7 +49,6 @@ public:
     Tile();
     Tile(TileValue, Position);
     Tile &operator=(const TileValue &obj);
-    Tile &operator=(const Tile &obj);
     void setValue(TileValue);
     TileValue getValue();
     void setPosition(Position);

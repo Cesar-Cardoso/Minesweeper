@@ -6,33 +6,19 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Game.cpp
-Game.h
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Game.h
-fstream
--
-vector
--
-random
--
-chrono
--
-
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Game.h
+/home/cesar/Desktop/git/Minesweeper/Game.h
 Tile.h
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Tile.h
+/home/cesar/Desktop/git/Minesweeper/Tile.h
 iostream
 -
 
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Tile.cpp
-Tile.h
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Tile.h
-
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Tile.h
-
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/main.cpp
-iostream
+/home/cesar/Desktop/git/Minesweeper/Main.cpp
+SFML/Graphics.hpp
 -
 Game.h
-C:/Users/cardo/OneDrive - University of Florida/School/Summer 2019/COP3503 - Programming Fundamentals 2/Project3/Game.h
+/home/cesar/Desktop/git/Minesweeper/Game.h
+cmath
+-
+
+/home/cesar/Desktop/git/Minesweeper/Tile.h
 

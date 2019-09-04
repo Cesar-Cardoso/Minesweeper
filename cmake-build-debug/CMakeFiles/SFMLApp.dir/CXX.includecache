@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cesar/Desktop/git/Minesweeper/Game.cpp
+Game.h
+/home/cesar/Desktop/git/Minesweeper/Game.h
+fstream
+-
+vector
+-
+random
+-
+chrono
+-
+
+/home/cesar/Desktop/git/Minesweeper/Game.h
+Tile.h
+/home/cesar/Desktop/git/Minesweeper/Tile.h
+iostream
+-
+SFML/Graphics.hpp
+-
+
+/home/cesar/Desktop/git/Minesweeper/Main.cpp
+SFML/Graphics.hpp
+-
+Game.h
+/home/cesar/Desktop/git/Minesweeper/Game.h
+cmath
+-
+
+/home/cesar/Desktop/git/Minesweeper/Tile.cpp
+Tile.h
+/home/cesar/Desktop/git/Minesweeper/Tile.h
+
+/home/cesar/Desktop/git/Minesweeper/Tile.h
+
